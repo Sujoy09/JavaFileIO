@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import static com.bridgelabz.EmployeePayrollService.IOService.CONSOLE_IO;
+import static com.bridgelabz.EmployeePayrollService.IOService.FILE_IO;
 
 public class EmployeePayrollService {
+
     public enum IOService {CONSOLE_IO,FILE_IO,DB_IO,REST_IO}
     private List<EmployeePayrollData> employeePayrollList;
 
@@ -34,7 +36,21 @@ public class EmployeePayrollService {
         employeePayrollList.add(new EmployeePayrollData(id, name, salary));
     }
 
-    public void writeEmployeePayrollData(IOService fileIo) {
+    public void writeEmployeePayrollData(IOService ioService) {
+        if(ioService.equals(CONSOLE_IO))
         System.out.println("Writing Employee Payroll Roaster to console" +employeePayrollList);
+        else if (ioService.equals(IOService.FILE_IO))
+            new EmployeePayrollFileIOService().writeData(employeePayrollList);
+    }
+
+    public void printData(IOService ioService) {
+        if(ioService.equals(IOService.FILE_IO))
+            new EmployeePayrollFileIOService().printData();
+    }
+
+    public long countEntries(IOService ioService) {
+        if(ioService.equals(FILE_IO))
+            return new EmployeePayrollFileIOService().countEntries();
+        return 0;
     }
 }
