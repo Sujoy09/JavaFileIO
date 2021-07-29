@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.bridgelabz.EmployeePayrollService.IOService.CONSOLE_IO;
+
 public class EmployeePayrollService {
     public enum IOService {CONSOLE_IO,FILE_IO,DB_IO,REST_IO}
     private List<EmployeePayrollData> employeePayrollList;
@@ -19,7 +21,7 @@ public class EmployeePayrollService {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService(employeePayrollList);
         Scanner consoleInputReader = new Scanner(System.in);
         employeePayrollService.readEmployeePayrollData(consoleInputReader);
-        employeePayrollService.writeEmployeePayrollData();
+        employeePayrollService.writeEmployeePayrollData(CONSOLE_IO);
     }
 
     private void readEmployeePayrollData(Scanner consoleInputReader) {
@@ -32,7 +34,7 @@ public class EmployeePayrollService {
         employeePayrollList.add(new EmployeePayrollData(id, name, salary));
     }
 
-    private void writeEmployeePayrollData() {
+    public void writeEmployeePayrollData(IOService fileIo) {
         System.out.println("Writing Employee Payroll Roaster to console" +employeePayrollList);
     }
 }
